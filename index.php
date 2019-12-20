@@ -26,7 +26,7 @@ $tasks = $stm->fetchAll();
     <div class="row">
       <div class="col-md-12">
         <h1>All Tasks</h1>
-        <a href="create.html" class="btn btn-success">Add Task</a>
+        <a href="create.php" class="btn btn-success">Add Task</a>
         <table class="table">
           <thead>
             <tr>
@@ -42,10 +42,10 @@ $tasks = $stm->fetchAll();
                 <td><?= $task['id']; ?></td>
                 <td><?= $task['title']; ?></td>
                 <td>
-                  <a href="show.php?id=<?= $task['id'];?>" class="btn btn-info">
+                  <a href="show.php?id=<?= $task['id']; ?>" class="btn btn-info">
                     Show
                   </a>
-                  <a href="edit.html" class="btn btn-warning">
+                  <a href="edit.php?id=<?= $task['id']; ?>" class="btn btn-warning">
                     Edit
                   </a>
                   <a onclick="return confirm('are you sure?');" href="#" class="btn btn-danger">Delete</a>
