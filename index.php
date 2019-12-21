@@ -48,7 +48,7 @@ $tasks = $stm->fetchAll();
                   <a href="edit.php?id=<?= $task['id']; ?>" class="btn btn-warning">
                     Edit
                   </a>
-                  <a onclick="return confirm('are you sure?');" href="#" class="btn btn-danger">Delete</a>
+                  <a onclick="return confirm('Вы уверены, что хотите удалить задачу?');" href="delete.php?id=<?= $task['id']; ?>" class="btn btn-danger">Delete</a>
                 </td>
               </tr>
             <?php endforeach; ?>
