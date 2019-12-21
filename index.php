@@ -1,15 +1,23 @@
 <?php
 
 /**
- * Подклучение к базе
+ * Получить все задачи
  */
-$db = new PDO('mysql:host=localhost; dbname=task-manager', 'root', '');
-$sql = 'SELECT * FROM tasks';
-$stm = $db->query($sql, PDO::FETCH_ASSOC);
-$stm->execute();
-$tasks = $stm->fetchAll();
+function getAllTasks()
+{
+  $db = new PDO('mysql:host=localhost; dbname=task-manager', 'root', '');
+  $sql = 'SELECT * FROM tasks';
+  $stm = $db->query($sql);
+  $stm->execute();
+  $tasks = $stm->fetchAll(PDO::FETCH_ASSOC);
+
+  return $tasks;
+}
+
+$tasks = getAllTasks();
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 

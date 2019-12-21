@@ -3,12 +3,19 @@
 /**
  * Вывод подробного описания задачи
  */
-$db = new PDO('mysql:host=localhost; dbname=task-manager', 'root', '');
-$sql = 'SELECT * FROM tasks WHERE id=:id';
-$stm = $db->prepare($sql);
-$stm->bindParam(':id', $_GET['id']);
-$stm->execute();
-$task = $stm->fetch(PDO::FETCH_ASSOC);
+function getTask($id)
+{
+  $db = new PDO('mysql:host=localhost; dbname=task-manager', 'root', '');
+  $sql = "SELECT * FROM tasks WHERE id=:id";
+  $stm = $db->prepare($sql);
+  $stm->bindParam(':id', $id);
+  $stm->execute();
+  $task = $stm->fetch(PDO::FETCH_ASSOC);
+
+  return $task;
+}
+
+$task = getTask($_GET['id']);
 
 ?>
 <!DOCTYPE html>
