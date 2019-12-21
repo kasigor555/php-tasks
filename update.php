@@ -1,4 +1,6 @@
 <?php
+require_once 'db/QueryBuilder.php';
+$db = new QueryBuilder;
 
 $data = [
   "id" => $_GET['id'],
@@ -6,17 +8,7 @@ $data = [
   "description" => $_POST['description']
 ];
 
-/**
- * Обновление задачи
- */
-function updateTask($data)
-{
-  $db = new PDO('mysql:host=localhost; dbname=task-manager', 'root', '');
-  $stm = $db->prepare("UPDATE tasks SET title=:title, description=:description WHERE id=:id");
-  $stm->execute($data);
-}
-
-updateTask($data);
+$db->updateTask($data);
 
 header("Location: /php-tasks/");
 exit;

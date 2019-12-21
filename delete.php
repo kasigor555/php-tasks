@@ -1,17 +1,10 @@
 <?php
-$id = $_GET['id'];
-/**
- * Удаление задачи
- */
-function deleteTask($id)
-{
-  $db = new PDO('mysql:host=localhost; dbname=task-manager', 'root', '');
-  $stm = $db->prepare('DELETE FROM tasks WHERE id=:id');
-  $stm->bindParam(':id', $id);
-  $stm->execute();
-}
+require_once 'db/QueryBuilder.php';
+$db = new QueryBuilder;
 
-deleteTask($id);
+$id = $_GET['id'];
+
+$db->deleteTask($id);
 
 header('Location: /php-tasks/');
 exit;

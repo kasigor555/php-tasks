@@ -1,21 +1,8 @@
 <?php
+require_once 'db/QueryBuilder.php';
+$db = new QueryBuilder;
 
-/**
- * Форма для обновления задачи
- */
-function getTask($id)
-{
-  $db = new PDO('mysql:host=localhost; dbname=task-manager', 'root', '');
-  $sql = "SELECT * FROM tasks WHERE id=:id";
-  $stm = $db->prepare($sql);
-  $stm->bindParam(':id', $id);
-  $stm->execute();
-  $task = $stm->fetch(PDO::FETCH_ASSOC);
-
-  return $task;
-}
-
-$task = getTask($_GET['id']);
+$task = $db->getTask($_GET['id']);
 
 ?>
 <!DOCTYPE html>

@@ -1,16 +1,9 @@
 <?php
 
-/**
- * Создания задачи
- */
-function addTask($data)
-{
-  $db = new PDO('mysql:host=localhost; dbname=task-manager', 'root', '');
-  $stm = $db->prepare("INSERT INTO tasks (title, description) VALUES(:title, :description)");
-  $stm->execute($data);
-}
+require_once 'db/QueryBuilder.php';
+$db = new QueryBuilder;
 
-addTask($_POST);
+$db->addTask($_POST);
 
 header("Location: /php-tasks/");
 exit;
