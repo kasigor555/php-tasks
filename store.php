@@ -3,7 +3,12 @@
 require_once 'db/QueryBuilder.php';
 $db = new QueryBuilder;
 
-$db->addTask($_POST);
+// $data = [
+//   "title" => $_POST['title'],
+//   "description" => $_POST['description']
+// ];
+
+$db->add('tasks', $_POST);
 
 header("Location: /php-tasks/");
 exit;

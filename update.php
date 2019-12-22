@@ -8,7 +8,7 @@ $data = [
   "description" => $_POST['description']
 ];
 
-$db->updateTask($data);
+$db->update('tasks', $data);
 
 header("Location: /php-tasks/");
 exit;

@@ -1,62 +1,78 @@
 <?php
 class QueryBuilder
 {
+  public $db;
+
+  /**
+   * Подключение к базе
+   */
+  function __construct()
+  {
+    $this->db = new PDO('mysql:host=localhost; dbname=task-manager', 'root', '');
+  }
+
   /**
    * Получить все задачи
    */
-  function getAllTasks()
+  function getAll($table)
   {
-    $db = new PDO('mysql:host=localhost; dbname=task-manager', 'root', '');
-    $sql = 'SELECT * FROM tasks';
-    $stm = $db->query($sql);
+    $sql = "SELECT * FROM $table";
+    $stm = $this->db->query($sql);
     $stm->execute();
-    $tasks = $stm->fetchAll(PDO::FETCH_ASSOC);
+    $res = $stm->fetchAll(PDO::FETCH_ASSOC);
 
-    return $tasks;
+    return $res;
   }
 
   /**
    * Вывод подробного описания задачи
    */
-  function getTask($id)
+  function getOne($table, $id)
   {
-    $db = new PDO('mysql:host=localhost; dbname=task-manager', 'root', '');
-    $sql = "SELECT * FROM tasks WHERE id=:id";
-    $stm = $db->prepare($sql);
+    $sql = "SELECT * FROM $table WHERE id=:id";
+    $stm = $this->db->prepare($sql);
     $stm->bindParam(':id', $id);
     $stm->execute();
-    $task = $stm->fetch(PDO::FETCH_ASSOC);
+    $res = $stm->fetch(PDO::FETCH_ASSOC);
 
-    return $task;
+    return $res;
   }
 
   /**
    * Создания задачи
    */
-  function addTask($data)
+  function add($table, $data)
   {
-    $db = new PDO('mysql:host=localhost; dbname=task-manager', 'root', '');
-    $stm = $db->prepare("INSERT INTO tasks (title, description) VALUES(:title, :description)");
+    $keys = array_keys($data);
+    $fields = implode(', ', $keys);    
+    $placeholders = ":" . implode(', :', $keys);    
+
+    $stm = $this->db->prepare("INSERT INTO $table ($fields) VALUES($placeholders)");
     $stm->execute($data);
   }
 
   /**
    * Обновление задачи
    */
-  function updateTask($data)
+  function update($table, $data)
   {
-    $db = new PDO('mysql:host=localhost; dbname=task-manager', 'root', '');
-    $stm = $db->prepare("UPDATE tasks SET title=:title, description=:description WHERE id=:id");
+    $feilds = '';
+    
+    foreach ($data as $key => $value) {
+      $feilds .= $key . "=:" . $key . ", ";
+    }
+    $feilds = rtrim($feilds, ', ');    
+
+    $stm = $this->db->prepare("UPDATE $table SET $feilds WHERE id=:id");
     $stm->execute($data);
   }
 
   /**
    * Удаление задачи
    */
-  function deleteTask($id)
+  function delete($table, $id)
   {
-    $db = new PDO('mysql:host=localhost; dbname=task-manager', 'root', '');
-    $stm = $db->prepare('DELETE FROM tasks WHERE id=:id');
+    $stm = $this->db->prepare("DELETE FROM $table WHERE id=:id");
     $stm->bindParam(':id', $id);
     $stm->execute();
   }

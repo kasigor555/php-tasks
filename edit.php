@@ -2,7 +2,7 @@
 require_once 'db/QueryBuilder.php';
 $db = new QueryBuilder;
 
-$task = $db->getTask($_GET['id']);
+$task = $db->getOne('tasks', $_GET['id']);
 
 ?>
 <!DOCTYPE html>
