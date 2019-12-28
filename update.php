@@ -10,5 +10,5 @@ $data = [
 
 $db->update('tasks', $data);
 
-header("Location: /php-tasks/");
+header("Location: /");
 exit;

@@ -1,9 +1,12 @@
 <?php
+
 /**
  * Входная точка сайта
  */
-require_once '../db/QueryBuilder.php';
-require_once '../Components/Auth.php';
+require_once '../vendor/autoload.php';
+
+use App\QueryBuilder;
+use App\Auth;
 
 $db = new QueryBuilder;
 

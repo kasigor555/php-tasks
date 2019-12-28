@@ -10,5 +10,5 @@ $db = new QueryBuilder;
 
 $db->add('tasks', $_POST);
 
-header("Location: /php-tasks/");
+header("Location: /");
 exit;

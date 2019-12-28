@@ -1,4 +1,9 @@
 <?php
+
+namespace App;
+
+use PDO;
+
 class QueryBuilder
 {
   public $db;
@@ -44,8 +49,8 @@ class QueryBuilder
   function add($table, $data)
   {
     $keys = array_keys($data);
-    $fields = implode(', ', $keys);    
-    $placeholders = ":" . implode(', :', $keys);    
+    $fields = implode(', ', $keys);
+    $placeholders = ":" . implode(', :', $keys);
 
     $stm = $this->db->prepare("INSERT INTO $table ($fields) VALUES($placeholders)");
     $stm->execute($data);
@@ -57,11 +62,11 @@ class QueryBuilder
   function update($table, $data)
   {
     $feilds = '';
-    
+
     foreach ($data as $key => $value) {
       $feilds .= $key . "=:" . $key . ", ";
     }
-    $feilds = rtrim($feilds, ', ');    
+    $feilds = rtrim($feilds, ', ');
 
     $stm = $this->db->prepare("UPDATE $table SET $feilds WHERE id=:id");
     $stm->execute($data);
